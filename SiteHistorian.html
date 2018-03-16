@@ -20,8 +20,15 @@ body{
 .WebName {position:absolute;margin-left:5%;width:90%;margin-right:5%;height:90%;margin-top:2%;margin-bottom:2%;text-align:center;background-color:#63402d;}
 .LogInBox {position:absolute;margin-left:3%;width:46%;margin-right:1%;height:90%;margin-top:2%;text-align:center;background-color:#724e3a;border-style: double;border-color: white;}
 .RegisterBox {position:absolute;margin-left:1%;width:46%;margin-right:3%;height:90%;margin-top:2%;text-align:center;background-color:#724e3a;border-style: double;border-color: white;}
-.Username {}
-.Password {}
+.Username {color:#fffdfc;position:absolute;margin-top:20%;margin-left: 5%;font-size: 20px;}
+.Password {color:#fffdfc;position:absolute;margin-top:35%;margin-left: 5%;font-size: 20px;}
+#LogIn {color: #ffffff;font-size:40px;margin-top:10%;}
+#LogInC{position:absolute;margin-top:25%;margin-left: 5%;}
+#PasswordC{position:absolute;margin-top:40%;margin-left: 5%;}
+#RegisterM {color:#fffdfc;position:absolute;margin-top:50%;margin-left: 5%;font-size: 20px;}
+#RegisterE {position:absolute;margin-top:55%;margin-left: 5%;}
+
+
 
 
 
@@ -34,12 +41,48 @@ body{
     <body background= "https://i.imgur.com/7D1vJ0w.jpg">
 	<div class ="WebName">
 		<div class ="LogInBox">
-			<div class = "Username">
-			<label for="uname"><b>Username</b></label>
+			<div id="LogIn">
+			<b>Вход</b>
 			</div>
+			<div class = "Username">
+			<label for="uname"><b>Потребител:</b></label>
+			</div>
+			<div id="LogInC">
+			<input type="text" placeholder="Име на потребителя..." name="uname" required>
+			</div>
+			<div class = "Password">
+			<label for="uname"><b>Парола:</b></label>
+			</div>
+			<div id="PasswordC">
+			<input type="text" placeholder="Парола на потребителя..." name="pas" required>
+			</div>
+			
 	
 		</div>
 		<dic class ="RegisterBox">
+		<div id="LogIn">
+			<b>Регистрация</b>
+			</div>
+			<div class = "Username">
+			<label for="uname"><b>Потребител:</b></label>
+			</div>
+			<div id="LogInC">
+			<input type="text" placeholder="Име на потребителя..." name="uname" required>
+			</div>
+			<div class = "Password">
+			<label for="uname"><b>Парола:</b></label>
+			</div>
+			<div id="PasswordC">
+			<input type="text" placeholder="Парола на потребителя..." name="pas" required>
+			<input type="text" placeholder="Потвърди парола..." name="pas1" required>
+			</div>
+			<div id="RegisterM">
+			<b>Имейл адрес:</b>
+			</div>
+			<div id="RegisterE">
+			<input type="text" placeholder="Е-Поща..." name="mail" required>
+			</div>
+			
 		</div>
 
 	</div>
