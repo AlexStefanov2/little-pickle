@@ -57,18 +57,11 @@
 			center: {lat: 42.6977082, lng: 23.321867500000053},
 			zoom: 13,
 			mapTypeControl: false,
-			streetViewControl: false,
-            fullscreenControl: false
+			streetViewControl: false
 		});
 		var styleControl = document.getElementById('style-selector-control');
         map.controls[google.maps.ControlPosition.TOP_LEFT].push(styleControl);
 
-        var styleSelector = document.getElementById('style-selector');
-        map.setOptions({styles: styles[styleSelector.value]});
-
-        styleSelector.addEventListener('change', function() {
-          map.setOptions({styles: styles[styleSelector.value]});
-        });
 				var img = 'https://i.imgur.com/vljb7jT.png';
 		var marker1 = new google.maps.Marker({
 		position:  {lat: 42.69587340697887, lng: 23.332815170288086},
@@ -86,6 +79,21 @@
 		icon: img   
 		});
 		
+        var styleSelector = document.getElementById('style-selector');
+        map.setOptions({styles: styles[styleSelector.value]});
+
+        styleSelector.addEventListener('change', function() {
+          map.setOptions({styles: styles[styleSelector.value]});
+          if (styleSelector.selectedIndex == 2){
+            marker1.setVisible(true);
+            marker2.setVisible(true);
+            marker3.setVisible(true);
+          }else{
+            marker1.setVisible(false);
+            marker2.setVisible(false);
+            marker3.setVisible(false);
+          }
+        });
 		}
 
 		
