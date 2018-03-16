@@ -6,12 +6,9 @@
     <meta name="viewport" content="initial-scale=1.0">
     <meta charset="utf-8">
     <style>
-      /* Always set the map height explicitly to define the size of the div
-       * element that contains the map. */
       #map {
         height: 100%;
       }
-      /* Optional: Makes the sample page fill the window. */
       html, body {
         height: 100%;
         margin: 0;
@@ -27,30 +24,23 @@
       <select id="style-selector" class="selector-control">
         <option value="default">Default</option>
         <option value="retro" selected="selected">Retro</option>
-        <option value="hiding">Hide features</option>
       </select>
     </div>
     <div id="map"></div>
     <script>
       var map;
       function initMap() {
-        // Create the map with no initial style specified.
-        // It therefore has default styling.
         map = new google.maps.Map(document.getElementById('map'), {
-          center: {lat: -33.86, lng: 151.209},
+          center: {lat: 42.6977082, lng: 23.321867500000053},
           zoom: 13,
           mapTypeControl: false
         });
-
-        // Add a style-selector control to the map.
         var styleControl = document.getElementById('style-selector-control');
         map.controls[google.maps.ControlPosition.TOP_LEFT].push(styleControl);
 
-        // Set the map's style to the initial value of the selector.
         var styleSelector = document.getElementById('style-selector');
         map.setOptions({styles: styles[styleSelector.value]});
 
-        // Apply new JSON when the user selects a different style.
         styleSelector.addEventListener('change', function() {
           map.setOptions({styles: styles[styleSelector.value]});
         });
@@ -58,7 +48,7 @@
 
       var styles = {
         default: null,
-        
+		
         retro: [
           {elementType: 'geometry', stylers: [{color: '#ebe3cd'}]},
           {elementType: 'labels.text.fill', stylers: [{color: '#523735'}]},
@@ -170,17 +160,6 @@
           }
         ],
 
-        hiding: [
-          {
-            featureType: 'poi.business',
-            stylers: [{visibility: 'off'}]
-          },
-          {
-            featureType: 'transit',
-            elementType: 'labels.icon',
-            stylers: [{visibility: 'off'}]
-          }
-        ]
       };
 
 
