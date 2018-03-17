@@ -62,6 +62,10 @@ function register() {
     var password = $('#pasreg').val();
     var passwordconf = $('#pasconfreg').val();
 
+    if (password !== passwordconf){
+        window.alert("The passwords entered do not match.");
+        return 1;
+    }
 
     var user = new Kinvey.User();
     var promise = user.signup({
@@ -249,11 +253,10 @@ body{
             </div>
             <div id="PasswordC">
                 <input type="password" placeholder="Парола на потребителя..." name="pasreg" id="pasreg" required>
-                <input type="password" placeholder="Потвърди парола..." name="pas1" id="pasconfirmreg" required>
+                <input type="password" placeholder="Потвърди парола..." name="pas1" id="pasconfreg" required>
             </div>
             <div id="Button1Position">
-                <button class="RegButton" onclick="register()"><span>Регистрация</span></button>
-                <button class="RegButton" onclick="logout()"><span>Logout</span></button>
+                <button class="RegButton" onclick="register();"><span>Регистрация</span></button>
             </div>
         </div>
 
