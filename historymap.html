@@ -18,10 +18,6 @@ Kinvey.init({
 
 });
 
-var site = "https://alexstefanov2.github.io/little-pickle/SiteHistorian.html";
-if (!(Kinvey.User.getActiveUser())){
-    window.location.replace(site);
-}
 
 
 var promise;
@@ -278,6 +274,12 @@ window.onclick = function(event) {
 }
         </script>
         <script>
+
+var site = "https://alexstefanov2.github.io/little-pickle/SiteHistorian.html";
+if (!(Kinvey.User.getActiveUser())){
+    window.location.replace(site);
+}
+
 var map;
 function initMap() {
     map = new google.maps.Map(document.getElementById('map'), {
