@@ -1,7 +1,7 @@
 ﻿<!doctype html>
 <html>
 	<head>
-	<title>P </title>
+	<title>Login Page </title>
 	<meta charset="UTF-8">
 	<link rel="shortcut icon" type="image/x-icon" href="favicon.ico" />
 <style>
@@ -30,14 +30,94 @@ body{
 .RegisterBox {font-size: 2vw;position:absolute;margin-left:1%;width:46%;margin-right:3%;height:90%;margin-top:2%;text-align:center;background-image:url("https://i.imgur.com/yjrD6Kt.png");border-style: double;border-color: white;background-size: 100%;}
 .Username {color:#fffdfc;position:absolute;margin-top:20%;margin-left: 5%;font-size: 2vw;}
 .Password {color:#fffdfc;position:absolute;margin-top:35%;margin-left: 5%;font-size: 2vw;}
-#LogIn {color: #ffffff;font-size:40px;margin-top:10%;}
+#LogIn {color: #ffffff;font-size:40px;margin-top:5%;}
 #LogInC{position:absolute;margin-top:25%;margin-left: 5%;}
 #PasswordC{position:absolute;margin-top:40%;margin-left: 5%;}
 #RegisterM {color:#fffdfc;position:absolute;margin-top:60%;margin-left: 5%;font-size: 2vw;}
 #RegisterE {position:absolute;margin-top:65%;margin-left: 5%;}
+#Log{margin-top:5%;width:100%;padding: 10px;padding-right:10%;padding-left:10%;background-image:url("https://inhabitat.com/wp-content/blogs.dir/1/files/2018/02/wood-889x593.jpg");}
+#Reg{}
+#Button1Position{
+	position:absolute;
+	margin-top:65%;
+	margin-left: 5%;
+}
+.RegButton{
+	font-size: 24px;
+	border-radius: 4px;
+	background-color: #63402d;
+    color: white;
+	padding: 10px 30px;
+	border: 2px solid #ffffff;
+	cursor: pointer;
+	transition: all 0.5s;
+}
 
+.RegButton span {
+  cursor: pointer;
+  display: inline-block;
+  position: relative;
+  transition: 0.5s;
+}
 
+.RegButton span:after {
+  content: '\00bb';
+  position: absolute;
+  opacity: 0;
+  top: 0;
+  right: -20px;
+  transition: 0.5s;
+}
 
+.RegButton:hover span {
+  padding-right: 25px;
+}
+
+.RegButton:hover span:after {
+  opacity: 1;
+  right: 0;
+}
+#Button2Position{
+	position:absolute;
+	margin-top:65%;
+	margin-left: 5%;
+}
+
+.LogButton{
+	font-size: 24px;
+	border-radius: 4px;
+	background-color: #63402d;
+    color: white;
+	padding: 10px 30px;
+	border: 2px solid #ffffff;
+	cursor: pointer;
+	transition: all 0.5s;
+}
+
+.LogButton span {
+  cursor: pointer;
+  display: inline-block;
+  position: relative;
+  transition: 0.5s;
+}
+
+.LogButton span:after {
+  content: '\00bb';
+  position: absolute;
+  opacity: 0;
+  top: 0;
+  right: -20px;
+  transition: 0.5s;
+}
+
+.LogButton:hover span {
+  padding-right: 25px;
+}
+
+.LogButton:hover span:after {
+  opacity: 1;
+  right: 0;
+}
 
 
 
@@ -50,7 +130,7 @@ body{
 	<div class ="WebName">
 		<div class ="LogInBox">
 			<div id="LogIn">
-			<b>Вход</b>
+			<b id="Log">Вход</b>
 			</div>
 			<div class = "Username">
 			<label for="uname"><b>Потребител:</b></label>
@@ -64,12 +144,14 @@ body{
 			<div id="PasswordC">
 			<input type="text" placeholder="Парола на потребителя..." name="pas" required>
 			</div>
-			
+			<div id="Button2Position">
+			<button class="LogButton"><span>Вход</span></button>
+			</div>
 	
 		</div>
-		<dic class ="RegisterBox">
+		<dick class ="RegisterBox">
 		<div id="LogIn">
-			<b>Регистрация</b>
+			<b class="Static">Регистрация</b>
 			</div>
 			<div class = "Username">
 			<label for="uname"><b>Потребител:</b></label>
@@ -84,7 +166,9 @@ body{
 			<input type="text" placeholder="Парола на потребителя..." name="pas" required>
 			<input type="text" placeholder="Потвърди парола..." name="pas1" required>
 			</div>
-			
+			<div id="Button1Position">
+			<button class="RegButton"><span>Регистрация</span></button>
+			</div>
 		</div>
 
 	</div>
