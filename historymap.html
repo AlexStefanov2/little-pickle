@@ -14,6 +14,10 @@
         margin: 0;
         padding: 0;
 		}
+		
+		.center{
+			text-align:center;
+		}
 	  
 		#style-selector{
 		border-radius: 12px;
@@ -44,9 +48,11 @@
 
     <div id="style-selector-control"  class="map-control">
       <select id="style-selector" class="selector-control style-hover">
-        <option value="default">Default Layer</option>
-        <option value="retro" selected="selected">Historical Layer</option>
-		<option value="WeekTargets" selected="selected">Weekly Targets</option>
+        <option value="default">Карта</option>
+		<option value="kids" selected="selected">Детска карта</option>
+        <option value="retro" selected="selected">Карта на забележителностите</option>
+		<option value="WeekTargets" selected="selected">Седмични цели</option>
+		
       </select>
     </div>
     <div id="map"></div>
@@ -57,49 +63,336 @@
 			center: {lat: 42.6977082, lng: 23.321867500000053},
 			zoom: 13,
 			mapTypeControl: false,
-			streetViewControl: false
+			streetViewControl: false,
+			fullscreenControl: false
 		});
 		var styleControl = document.getElementById('style-selector-control');
         map.controls[google.maps.ControlPosition.TOP_LEFT].push(styleControl);
-
-				var img = 'https://i.imgur.com/vljb7jT.png';
+		var img = 'https://i.imgur.com/vljb7jT.png';
 		var marker1 = new google.maps.Marker({
 		position:  {lat: 42.69587340697887, lng: 23.332815170288086},
 		map: map,
-		icon: img   
+		icon: img,
+		title: 'A.Nevski',
+		
 		});
 		var marker2 = new google.maps.Marker({
-		position:  {lat: 42.688744684656335, lng: 23.350582122802734},
+		position:  {lat: 42.6956906, lng: 23.328966600000058},
 		map: map,
-		icon: img   
+		icon: img,
+		title: 'RuskaCurkva',
 		});
 		var marker3 = new google.maps.Marker({
-		position:  {lat: 42.65498254696798, lng: 23.270845413208008},
+		position:  {lat: 42.64463130000001, lng: 23.266183400000045},
 		map: map,
-		icon: img   
-		});
+		icon: img,
+		title: 'BoqnskaCherkva'
 		
-        var styleSelector = document.getElementById('style-selector');
+		});
+		var marker4 = new google.maps.Marker({
+		position:  {lat: 42.6969115, lng: 23.32290169999999},
+		map: map,
+		title: 'St.George'
+		});
+		var marker5 = new google.maps.Marker({
+		position:  {lat: 42.690327, lng: 23.31703200000004},
+		map: map,  
+		title: 'Sof.Sinagoga'
+		});
+		var marker6 = new google.maps.Marker({
+		position:  {lat: 42.7002701, lng: 23.320849400000043},
+		map: map,  
+		title: 'JamiaBashi'
+		});
+		var marker7 = new google.maps.Marker({
+		position:  {lat: 42.6995277, lng: 23.32255310000005},
+		map: map,  
+		});
+		var marker8 = new google.maps.Marker({
+		position:  {lat: 42.6558745, lng: 23.26765219999993},
+		map: map,  
+		});
+		var marker9 = new google.maps.Marker({
+		position:  {lat: 42.6906651, lng: 23.334498800000006},
+		map: map,  
+		});
+		var marker10 = new google.maps.Marker({
+		position:  {lat: 42.6993502, lng: 23.323696299999938},
+		map: map,  
+		});
+		var styleSelector = document.getElementById('style-selector');
         map.setOptions({styles: styles[styleSelector.value]});
+
+		var contentString1 = '<div id="content">'+
+            '<div id="siteNotice">'+
+            '</div>'+
+            '<h1 id="firstHeading" class="firstHeading">Св.Александър Невски</h1>'+
+            '<div id="bodyContent">'+
+			'<p>„Свети Александър Невски“ е православен храм-паметник в София, който e катедрален храм на българския патриарх.</p>'+
+            '<p>Брой точки: 50</p>'+
+            '</div>'+
+            '</div>';
+
+		var contentString2 = '<div id="content">'+
+            '<div id="siteNotice">'+
+            '</div>'+
+            '<h1 id="firstHeading" class="firstHeading">Руска Църква „Свети Николай Мирликийски“</h1>'+
+            '<div id="bodyContent">'+
+			'<p>„Свети Николай Чудотворец“, известна като Руската църква, е православна църква в българската столица София, посветена на Свети Николай Чудотворец.</p>'+
+            '<p>Брой точки: 50</p>'+
+            '</div>'+
+            '</div>';
+
+		var contentString3 = '<div id="content">'+
+            '<div id="siteNotice">'+
+            '</div>'+
+            '<h1 id="firstHeading" class="firstHeading">Боянска черква</h1>'+
+            '<div id="bodyContent">'+
+			'<p>Боянската църква „Св. св. Никола и Пантелеймон“ е средновековна българска църква в софийския квартал Бояна, намиращ се в подножието на Витоша.</p>'+
+            '<p>Брой точки: 50</p>'+
+            '</div>'+
+            '</div>';
+
+		var contentString4 = '<div id="content">'+
+            '<div id="siteNotice">'+
+            '</div>'+
+            '<h1 id="firstHeading" class="firstHeading">Ротонда Свети Георги</h1>'+
+            '<div id="bodyContent">'+
+			'<p>„Свети Георги“ е православен храм, построен в късната античност в архитектурната форма на ротонда, в София, България.</p>'+
+            '<p>Брой точки: 50</p>'+
+            '</div>'+
+            '</div>';
+
+		var contentString5 = '<div id="content">'+
+            '<div id="siteNotice">'+
+            '</div>'+
+            '<h1 id="firstHeading" class="firstHeading">Софийска синагога</h1>'+
+            '<div id="bodyContent">'+
+			'<p>Софийската синагога е най-голямата на Балканския полуостров и 3-та в Европа.</p>'+
+            '<p>Брой точки: 50</p>'+
+            '</div>'+
+            '</div>';
+
+			var contentString6 = '<div id="content">'+
+            '<div id="siteNotice">'+
+            '</div>'+
+            '<h1 id="firstHeading" class="firstHeading">Джамия Баня Баши</h1>'+
+            '<div id="bodyContent">'+
+			'<p>Джамията „Баня баши” се намира в центъра на София, на булевард „Мария Луиза”.</p>'+
+            '<p>Брой точки: 50</p>'+
+            '</div>'+
+            '</div>';
+
+
+		
+			
+		
+		marker1.addListener('click', function() {
+          IW1.open(map, marker1);
+        });
+
+
+		var IW1 = new google.maps.InfoWindow({
+          content: contentString1
+        });
+		
+		 marker1.addListener('click', function() {
+          IW1.open(map, marker1);
+        });
+
+
+		var IW2 = new google.maps.InfoWindow({
+          content: contentString2
+        });
+
+		marker2.addListener('click', function() {
+          IW2.open(map, marker2);
+        });
+
+		var IW3 = new google.maps.InfoWindow({
+          content: contentString3
+        });
+
+		marker3.addListener('click', function() {
+          IW3.open(map, marker3);
+        });
+
+		var IW4 = new google.maps.InfoWindow({
+          content: contentString4
+        });
+
+
+		marker4.addListener('click', function() {
+          IW4.open(map, marker4);
+        });
+
+		var IW5 = new google.maps.InfoWindow({
+          content: contentString5
+        });
+
+		marker5.addListener('click', function() {
+          IW5.open(map, marker5);
+        });
+
+		var IW6 = new google.maps.InfoWindow({
+          content: contentString6
+        });
+
+		marker6.addListener('click', function() {
+          IW6.open(map, marker6);
+        });
+		
+		
 
         styleSelector.addEventListener('change', function() {
           map.setOptions({styles: styles[styleSelector.value]});
-          if (styleSelector.selectedIndex == 2){
+          if (styleSelector.selectedIndex == 3){
             marker1.setVisible(true);
             marker2.setVisible(true);
-            marker3.setVisible(true);
+			marker3.setVisible(true);
+            marker4.setVisible(true);
+			marker5.setVisible(true);
+			marker6.setVisible(true);
+			marker7.setVisible(true);
+			мarker8.setVisible(true);
+			marker9.setVisible(true);
+			marker10.setVisible(true);
           }else{
             marker1.setVisible(false);
             marker2.setVisible(false);
             marker3.setVisible(false);
+			marker4.setVisible(false);
+            marker5.setVisible(false);
+            marker6.setVisible(false);
+			marker7.setVisible(false);
+            marker8.setVisible(false);
+            marker9.setVisible(false);
+			marker10.setVisible(false);
           }
-        });
+		
+		});
+		
 		}
-
+		
 		
 
 		var styles = {
         default: null,
+		
+		kids: [
+		{
+			"featureType": "administrative",
+			"stylers": [
+			  {
+				"visibility": "off"
+			  }
+			]
+		  },
+		  {
+			"featureType": "landscape.man_made",
+			"elementType": "geometry",
+			"stylers": [
+			  {
+				"color": "#c1dae8"
+			  }
+			]
+		  },
+		  {
+			"featureType": "landscape.natural",
+			"elementType": "geometry",
+			"stylers": [
+			  {
+				"color": "#99e895"
+			  }
+			]
+		  },
+		  {
+			"featureType": "poi.business",
+			"stylers": [
+			  {
+				"visibility": "off"
+			  }
+			]
+		  },
+		  {
+			"featureType": "poi.government",
+			"stylers": [
+			  {
+				"visibility": "off"
+			  }
+			]
+		  },
+		  {
+			"featureType": "poi.medical",
+			"stylers": [
+			  {
+				"visibility": "off"
+			  }
+			]
+		  },
+		  {
+			"featureType": "poi.park",
+			"elementType": "geometry",
+			"stylers": [
+			  {
+				"color": "#71ce8f"
+			  }
+			]
+		  },
+		  {
+			"featureType": "poi.school",
+			"stylers": [
+			  {
+				"visibility": "off"
+			  }
+			]
+		  },
+		  {
+			"featureType": "poi.sports_complex",
+			"stylers": [
+			  {
+				"visibility": "off"
+			  }
+			]
+		  },
+		  {
+			"featureType": "road",
+			"elementType": "geometry",
+			"stylers": [
+			  {
+				"color": "#f7f182"
+			  }
+			]
+		  },
+		  {
+			"featureType": "road.local",
+			"elementType": "geometry",
+			"stylers": [
+			  {
+				"color": "#fa7ea0"
+			  }
+			]
+		  },
+		  {
+			"featureType": "transit",
+			"elementType": "geometry",
+			"stylers": [
+			  {
+				"color": "#ff6453"
+			  }
+			]
+		  },
+		  {
+			"featureType": "water",
+			"elementType": "geometry",
+			"stylers": [
+			  {
+				"color": "#9b96da"
+			  }
+			]
+		  }
+		
+		],
 		
         retro: [
           {
