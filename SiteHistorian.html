@@ -23,11 +23,12 @@ Kinvey.init({
 var promise;
 var publicvar;
 
-/*
+var site = "file:///D:/Desktop/History%20map/historymap.html";
+
 if (Kinvey.User.getActiveUser()){
-    window.location.replace("http://stackoverflow.com");
+    window.location.replace(site);
 }
-*/
+
 
 var dataStore = Kinvey.DataStore.collection('coins');
 
@@ -37,7 +38,7 @@ function submitForm() {
 
     promise = Kinvey.User.login(username, password)
         .then(function(user) {
-            window.location.replace("http://stackoverflow.com");
+            window.location.replace(site);
         })
         .catch(function(error) {
             window.alert('login failed (try logging out first)');
@@ -68,7 +69,7 @@ function register() {
         password: password
     })
         .then(function(user){
-            window.location.replace("http://stackoverflow.com");
+            window.location.replace(site);
         })
         .catch(function(error){
             window.alert("Registration failed");
