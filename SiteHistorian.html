@@ -1,25 +1,109 @@
 ﻿<!doctype html>
 <html>
-	<head>
-	<title>Login Page </title>
-	<meta charset="UTF-8">
-	<link rel="shortcut icon" type="image/x-icon" href="favicon.ico" />
-<style>
+    <head>
+        <title>Login Page </title>
+        <meta charset="UTF-8">
+        <link rel="shortcut icon" type="image/x-icon" href="favicon.ico" />
+
+        <script src="https://da189i1jfloii.cloudfront.net/js/kinvey-html5-sdk-3.10.1.min.js"></script>
+        <script
+                src="https://code.jquery.com/jquery-3.3.1.min.js"
+                integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+                crossorigin="anonymous"></script>
+        <script>
+
+
+
+Kinvey.init({
+    appKey: 'kid_By_phEFtf',
+    appSecret: 'd4a49e6e931f490ab2f3b708f79a3629',
+
+});
+
+var promise;
+var publicvar;
+
+/*
+if (Kinvey.User.getActiveUser()){
+    window.location.replace("http://stackoverflow.com");
+}
+*/
+
+var dataStore = Kinvey.DataStore.collection('coins');
+
+function submitForm() {
+    var username = $('#unamelogin').val();
+    var password = $('#paslogin').val();
+
+    promise = Kinvey.User.login(username, password)
+        .then(function(user) {
+            window.location.replace("http://stackoverflow.com");
+        })
+        .catch(function(error) {
+            window.alert('login failed (try logging out first)');
+            publicvar = error;
+            window.alert(error);
+        });
+}
+
+function logout() {
+    var promise = Kinvey.User.logout()
+        .then(function() {
+            window.alert('logout successful')
+        }).catch(function(error) {
+            window.alert('logout failed')
+        });
+}
+
+function register() {
+
+    var username = $('#unamereg').val();
+    var password = $('#pasreg').val();
+    var passwordconf = $('#pasconfreg').val();
+
+
+    var user = new Kinvey.User();
+    var promise = user.signup({
+        username: username,
+        password: password
+    })
+        .then(function(user){
+            window.location.replace("http://stackoverflow.com");
+        })
+        .catch(function(error){
+            window.alert("Registration failed");
+            window.alert(error);
+        });
+}
+
+
+        </script>
+        <style>
+
+input[type=password] {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    box-sizing: border-box;
+    background-color: white;
+    border: 2px solid white;
+    border-radius: 4px;
+}
 
 input[type=text] {
     width: 100%;
-	padding: 12px 20px;
+    padding: 12px 20px;
     margin: 8px 0;
     box-sizing: border-box;
-	background-color: white;
-	border: 2px solid white;
+    background-color: white;
+    border: 2px solid white;
     border-radius: 4px;
-}   
-	
+}
+
 
 
 body{
-	margin: 0;
+    margin: 0;
 }
 
 
@@ -35,155 +119,145 @@ body{
 #PasswordC{position:absolute;margin-top:40%;margin-left: 5%;}
 #RegisterM {color:#fffdfc;position:absolute;margin-top:60%;margin-left: 5%;font-size: 2vw;}
 #RegisterE {position:absolute;margin-top:65%;margin-left: 5%;}
-#Log{margin-top:5%;width:100%;padding: 10px;padding-right:10%;padding-left:10%;background-image:url("https://inhabitat.com/wp-content/blogs.dir/1/files/2018/02/wood-889x593.jpg");}
-#Reg{}
+#Log{background-color:#63402d;padding: 10px;border-radius: 50px/10px;padding-left:15%;padding-right:15%;background-color: #63402d;border: 2px double #ffffff;}
+#Reg{background-color:#63402d;padding: 10px;border-radius: 50px/10px;padding-left:15%;padding-right:15%;background-color: #63402d;border: 2px double #ffffff;}
 #Button1Position{
-	position:absolute;
-	margin-top:65%;
-	margin-left: 5%;
+    position:absolute;
+    margin-top:65%;
+    margin-left: 5%;
 }
 .RegButton{
-	font-size: 24px;
-	border-radius: 4px;
-	background-color: #63402d;
+    font-size: 24px;
+    border-radius: 4px;
+    background-color: #63402d;
     color: white;
-	padding: 10px 30px;
-	border: 2px solid #ffffff;
-	cursor: pointer;
-	transition: all 0.5s;
+    padding: 10px 30px;
+    border: 2px solid #ffffff;
+    cursor: pointer;
+    transition: all 0.5s;
 }
 
 .RegButton span {
-  cursor: pointer;
-  display: inline-block;
-  position: relative;
-  transition: 0.5s;
+    cursor: pointer;
+    display: inline-block;
+    position: relative;
+    transition: 0.5s;
 }
 
 .RegButton span:after {
-  content: '\00bb';
-  position: absolute;
-  opacity: 0;
-  top: 0;
-  right: -20px;
-  transition: 0.5s;
+    content: '\00bb';
+    position: absolute;
+    opacity: 0;
+    top: 0;
+    right: -20px;
+    transition: 0.5s;
 }
 
 .RegButton:hover span {
-  padding-right: 25px;
+    padding-right: 25px;
 }
 
 .RegButton:hover span:after {
-  opacity: 1;
-  right: 0;
+    opacity: 1;
+    right: 0;
 }
 #Button2Position{
-	position:absolute;
-	margin-top:65%;
-	margin-left: 5%;
+    position:absolute;
+    margin-top:65%;
+    margin-left: 5%;
 }
 
 .LogButton{
-	font-size: 24px;
-	border-radius: 4px;
-	background-color: #63402d;
+    font-size: 24px;
+    border-radius: 4px;
+    background-color: #63402d;
     color: white;
-	padding: 10px 30px;
-	border: 2px solid #ffffff;
-	cursor: pointer;
-	transition: all 0.5s;
+    padding: 10px 30px;
+    border: 2px solid #ffffff;
+    cursor: pointer;
+    transition: all 0.5s;
 }
 
 .LogButton span {
-  cursor: pointer;
-  display: inline-block;
-  position: relative;
-  transition: 0.5s;
+    cursor: pointer;
+    display: inline-block;
+    position: relative;
+    transition: 0.5s;
 }
 
 .LogButton span:after {
-  content: '\00bb';
-  position: absolute;
-  opacity: 0;
-  top: 0;
-  right: -20px;
-  transition: 0.5s;
+    content: '\00bb';
+    position: absolute;
+    opacity: 0;
+    top: 0;
+    right: -20px;
+    transition: 0.5s;
 }
 
 .LogButton:hover span {
-  padding-right: 25px;
+    padding-right: 25px;
 }
 
 .LogButton:hover span:after {
-  opacity: 1;
-  right: 0;
+    opacity: 1;
+    right: 0;
 }
 
 
 
 
 
-</style>
-	</head>
-	
+        </style>
+    </head>
+
     <body background= "https://i.imgur.com/7D1vJ0w.jpg">
-	<div class ="WebName">
-		<div class ="LogInBox">
-			<div id="LogIn">
-			<b id="Log">Вход</b>
-			</div>
-			<div class = "Username">
-			<label for="uname"><b>Потребител:</b></label>
-			</div>
-			<div id="LogInC">
-			<input type="text" placeholder="Име на потребителя..." name="uname" required>
-			</div>
-			<div class = "Password">
-			<label for="uname"><b>Парола:</b></label>
-			</div>
-			<div id="PasswordC">
-			<input type="text" placeholder="Парола на потребителя..." name="pas" required>
-			</div>
-			<div id="Button2Position">
-			<button class="LogButton"><span>Вход</span></button>
-			</div>
-	
-		</div>
-		<dick class ="RegisterBox">
-		<div id="LogIn">
-			<b class="Static">Регистрация</b>
-			</div>
-			<div class = "Username">
-			<label for="uname"><b>Потребител:</b></label>
-			</div>
-			<div id="LogInC">
-			<input type="text" placeholder="Име на потребителя..." name="uname" required>
-			</div>
-			<div class = "Password">
-			<label for="uname"><b>Парола:</b></label>
-			</div>
-			<div id="PasswordC">
-			<input type="text" placeholder="Парола на потребителя..." name="pas" required>
-			<input type="text" placeholder="Потвърди парола..." name="pas1" required>
-			</div>
-			<div id="Button1Position">
-			<button class="RegButton"><span>Регистрация</span></button>
-			</div>
-		</div>
+        <div class ="WebName">
+            <div class ="LogInBox">
+                <div id="LogIn">
+                    <b id="Log">Вход</b>
+                </div>
+                <div class = "Username">
+                    <label for="uname"><b>Потребител:</b></label>
+                </div>
+                <div id="LogInC">
+                    <input type="text" placeholder="Име на потребителя..." name="uname" id="unamelogin" required>
+                </div>
+                <div class = "Password">
+                    <label for="uname"><b>Парола:</b></label>
+                </div>
+                <div id="PasswordC">
+                    <input type="password" placeholder="Парола на потребителя..." name="pas" id="paslogin" required>
+                </div>
+                <div id="Button2Position">
+                    <button class="LogButton" onclick="submitForm()"><span>Вход</span></button>
+                </div>
 
-	</div>
+            </div>
+            <dick class ="RegisterBox">
+            <div id="LogIn">
+                <b id="Reg">Регистрация</b>
+            </div>
+            <div class = "Username">
+                <label for="uname"><b>Потребител:</b></label>
+            </div>
+            <div id="LogInC">
+                <input type="text" placeholder="Име на потребителя..." name="unamereg" id="unamereg" required>
+            </div>
+            <div class = "Password">
+                <label for="uname"><b>Парола:</b></label>
+            </div>
+            <div id="PasswordC">
+                <input type="password" placeholder="Парола на потребителя..." name="pasreg" id="pasreg" required>
+                <input type="password" placeholder="Потвърди парола..." name="pas1" id="pasconfirmreg" required>
+            </div>
+            <div id="Button1Position">
+                <button class="RegButton" onclick="register()"><span>Регистрация</span></button>
+                <button class="RegButton" onclick="logout()"><span>Logout</span></button>
+            </div>
+        </div>
 
-	
+        </div>
 
-
-
-
-
-
-
-	
-	
-	
     </body>
-	
+
 </html>
