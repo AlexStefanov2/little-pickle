@@ -12,22 +12,16 @@
                 integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
                 crossorigin="anonymous"></script>
         <script>
-var site = "https://alexstefanov2.github.io/little-pickle/SiteHistorian.html";
 Kinvey.init({
     appKey: 'kid_By_phEFtf',
     appSecret: 'd4a49e6e931f490ab2f3b708f79a3629',
 
 });
 
-
-
-/* It's down at line 128
-
-function showPosition(position) {
-    window.alert("Latitude: " + position.coords.latitude +
-    "\nLongitude: " + position.coords.longitude);
+var site = "https://alexstefanov2.github.io/little-pickle/SiteHistorian.html";
+if (!(Kinvey.User.getActiveUser())){
+    window.location.replace(site);
 }
- */
 
 
 var promise;
