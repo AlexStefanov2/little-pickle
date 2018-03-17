@@ -68,6 +68,20 @@ function register() {
     }
 
     var user = new Kinvey.User();
+
+    window.alert('reached here');
+    dataStore.save({
+        username: username,
+        cookies: 0
+    })
+        .then(function onSuccess(entity){
+            window.alert('success!');
+        })
+        .catch(function onError(error) {
+            window.alert(error);
+        });
+
+    /*
     var promise = user.signup({
         username: username,
         password: password
@@ -79,6 +93,7 @@ function register() {
             window.alert("Registration failed");
             window.alert(error);
         });
+        */
 }
 
 
