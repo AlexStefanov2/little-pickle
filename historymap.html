@@ -19,9 +19,6 @@ Kinvey.init({
 
 });
 
-if (!(Kinvey.User.getActiveUser())){
-    window.location.replace(site);
-}
 
 
 /* It's down at line 128
@@ -118,23 +115,21 @@ function initMap() {
     var img = 'https://i.imgur.com/vljb7jT.png';
     var cookie = 'https://i.imgur.com/Ri5luM5.png';
 
+
     var marker0 = new google.maps.Marker({
-        position:  {lat: 42.6957, lng: 23.3328},
         map: map,
-
-
     });
+    function updatePosition(position){
+        marker0.setPosition( new google.maps.LatLng(position.coords.latitude, position.coords.longitude) );
+    }
 
-function showPosition(position) {
-    window.alert("Latitude: " + position.coords.latitude + 
-    "\nLongitude: " + position.coords.longitude);
-}
 
-if (navigator.geolocation) {
-    var stuff = navigator.geolocation.getCurrentPosition(showPosition);
-} else {
-    x.innerHTML = "Geolocation is not supported by this browser.";
-}
+
+    if (navigator.geolocation) {
+        navigator.geolocation.watchPosition(updatePosition);
+    } else {
+        window.alert('error with locating your coordinates.');
+    }
 
     var marker1 = new google.maps.Marker({
         position:  {lat: 42.69587340697887, lng: 23.332815170288086},
