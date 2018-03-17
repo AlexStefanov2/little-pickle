@@ -69,6 +69,7 @@
 		var styleControl = document.getElementById('style-selector-control');
         map.controls[google.maps.ControlPosition.TOP_LEFT].push(styleControl);
 		var img = 'https://i.imgur.com/vljb7jT.png';
+		var cookie = 'https://i.imgur.com/Ri5luM5.png';
 		var marker1 = new google.maps.Marker({
 		position:  {lat: 42.69587340697887, lng: 23.332815170288086},
 		map: map,
@@ -92,33 +93,40 @@
 		var marker4 = new google.maps.Marker({
 		position:  {lat: 42.6969115, lng: 23.32290169999999},
 		map: map,
-		title: 'St.George'
+		title: 'St.George',
+		icon: cookie,
 		});
 		var marker5 = new google.maps.Marker({
 		position:  {lat: 42.690327, lng: 23.31703200000004},
 		map: map,  
-		title: 'Sof.Sinagoga'
+		title: 'Sof.Sinagoga',
+		icon: cookie,
 		});
 		var marker6 = new google.maps.Marker({
 		position:  {lat: 42.7002701, lng: 23.320849400000043},
 		map: map,  
-		title: 'JamiaBashi'
+		title: 'JamiaBashi',
+		icon: cookie,
 		});
 		var marker7 = new google.maps.Marker({
 		position:  {lat: 42.6995277, lng: 23.32255310000005},
 		map: map,  
+		icon: cookie,
 		});
 		var marker8 = new google.maps.Marker({
 		position:  {lat: 42.6558745, lng: 23.26765219999993},
 		map: map,  
+		icon: cookie,
 		});
 		var marker9 = new google.maps.Marker({
 		position:  {lat: 42.6906651, lng: 23.334498800000006},
 		map: map,  
+		icon: cookie,
 		});
 		var marker10 = new google.maps.Marker({
 		position:  {lat: 42.6993502, lng: 23.323696299999938},
 		map: map,  
+		icon: cookie,
 		});
 		var styleSelector = document.getElementById('style-selector');
         map.setOptions({styles: styles[styleSelector.value]});
