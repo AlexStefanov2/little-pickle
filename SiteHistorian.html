@@ -38,7 +38,7 @@ function submitForm() {
 
     promise = Kinvey.User.login(username, password)
         .then(function(user) {
-            /*window.location.replace(site);*/
+            window.location.replace(site);
         })
         .catch(function(error) {
             window.alert('login failed (try logging out first)');
