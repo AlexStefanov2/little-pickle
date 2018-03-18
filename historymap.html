@@ -1,0 +1,1418 @@
+
+<!DOCTYPE html>
+<html>
+
+    <head>
+        <title>Maps</title>
+        <meta name="viewport" content="initial-scale=1.0">
+        <meta charset="utf-8">
+        
+        <script src="https://da189i1jfloii.cloudfront.net/js/kinvey-html5-sdk-3.10.1.min.js"></script>
+        <script
+                src="https://code.jquery.com/jquery-3.3.1.min.js"
+                integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+                crossorigin="anonymous"></script>
+        <script>
+Kinvey.init({
+    appKey: 'kid_By_phEFtf',
+    appSecret: 'd4a49e6e931f490ab2f3b708f79a3629',
+});
+var site = "https://alexstefanov2.github.io/little-pickle/SiteHistorian.html";
+var dataStore = Kinvey.DataStore.collection('coins');
+        </script>
+        <script src="logout.js"></script>
+        <script src="fetchUserData.js"></script>
+        <style>
+#map {
+    height: 100%;
+}
+
+        html,
+        body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+
+        .center {
+            text-align: center;
+        }
+
+        #style-selector {
+            border-radius: 12px;
+            padding: 12px 28px;
+            background-color: #966f4b;
+            border: 2px solid #FFFFFF;
+            color: white;
+            cursor: pointer;
+            -webkit-transition-duration: 0.4s;
+            transition-duration: 0.4s;
+            font-size: 20px;
+            outline: none;
+        }
+
+        #style2-selector2 {
+            border-radius: 12px;
+            padding: 12px 28px;
+            background-color: #966f4b;
+            border: 2px solid #FFFFFF;
+            color: white;
+            cursor: pointer;
+            -webkit-transition-duration: 0.4s;
+            transition-duration: 0.4s;
+            font-size: 20px;
+            outline: none;
+        }
+
+        #style3-selector3 {
+            border-radius: 12px;
+            padding: 12px 28px;
+            background-color: #966f4b;
+            border: 2px solid #FFFFFF;
+            color: white;
+            cursor: pointer;
+            -webkit-transition-duration: 0.4s;
+            transition-duration: 0.4s;
+            font-size: 20px;
+            outline: none;
+        }
+
+        .style-hover:hover {
+            box-shadow: 0 12px 16px 0 rgba(0, 0, 0, 0.24), 0 17px 50px 0 rgba(0, 0, 0, 0.19);
+        }
+
+        #style-selector-control {
+            margin-top: 10px;
+            margin-left: 10px;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 14px 20px;
+            margin: 8px 0;
+            border: none;
+            cursor: pointer;
+            width: 100%;
+        }
+
+
+
+
+        .imgcontainer {
+            text-align: center;
+
+            position: relative;
+        }
+
+        img.avatar {
+            width: 40%;
+            border-radius: 50%;
+        }
+
+        .container {
+            padding: 16px;
+        }
+
+        span.psw {
+            float: right;
+            padding-top: 16px;
+        }
+
+        .modal {
+            display: none;
+            position: absolute;
+            z-index: 1;
+            left: 0;
+            top: 0;
+
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgb(0, 0, 0);
+            background-color: rgba(0, 0, 0, 0.4);
+
+
+        }
+
+        .modal-content {
+            background-color: #966f4b;
+            margin-top: 5%;
+            border: 4px solid white;
+            border-radius: 25px;
+            position: absolute;
+            height: 80%;
+            width: 60%;
+            color: white;
+            margin-left: 20%;
+        }
+
+
+        .animate {
+            -webkit-animation: animatezoom 0.6s;
+            animation: animatezoom 0.6s
+        }
+
+        @-webkit-keyframes animatezoom {
+            from {
+                -webkit-transform: scale(0)
+            }
+            to {
+                -webkit-transform: scale(1)
+            }
+        }
+
+        @keyframes animatezoom {
+            from {
+                transform: scale(0)
+            }
+            to {
+                transform: scale(1)
+            }
+        }
+
+        @media screen and (max-width: 300px) {
+            span.psw {
+                display: block;
+                float: none;
+            }
+            .cancelbtn {
+                width: 100%;
+            }
+        }
+
+        .userstat {
+            font-size: 2.5vw;
+            margin-left: 5%
+        }
+
+        .badges {
+            font-size: 2.5vw;
+            margin-left: 10%;
+            margin-top: 8%;
+
+        }
+
+
+
+        .ach {
+            max-width: 50%;
+            max-height: 50%;
+            margin-left: 10%;
+            position: relative;
+            margin-top: 5%;
+        }
+
+
+
+        .places {
+            font-size: 2.5vw;
+            margin-left: 5%;
+            margin-top: 10%;
+
+        }
+
+
+
+        #prof1 {
+            float: left;
+
+            width: 50%;
+            height: 50%;
+
+        }
+
+        #prof2 {
+            float: left;
+            width: 50%;
+            height: 100%;
+
+
+        }
+
+        </style>
+    </head>
+
+    <body>
+
+        <div id="St.NikolayChudotvorets" class="modal">
+
+            <form class="modal-content animate" action="/action_page.php">
+                <div>
+                    <p>Градежът ѝ започва в края на 19 век, и трае дълги години, като е осветена през 1914 година в навечерието на Първата световна война. Сградата е построена върху парцел на � уското посолство по проект на Михаил Преображенски специално за нуждите на руските имигранти в столицата. Стенописите са дело на екип от художници, оглавяван от Василий Перминов. Петте малки купола на църквата са позлатени. Централният купол е висок 19 m. Камбаните са дарение от руския цар Николай II.Първоначално замислен като параклис към посолството на � усия в България, храмът почти веднага губи тази своя роля след 1917 година. След Втората руска революция в него започват за служат свещеници и архиереи от т. нар. „� уска задгранична църква“, а обособеният вече храм става център на многобройната руска имиграция в страната</p>
+
+                </div>
+
+
+
+        </div>
+            </form>
+            </div>
+
+            <div id="QUIZ St.NikolayChudotvorets" class="modal">
+
+                <form class="modal-content animate" action="/action_page.php">
+                    <div>
+                        <p class="question">1. Кога започва градежа на църквата?</p>
+                        <ul class="answers">
+                            <input type="radio" name="q1" value="a" id="q1a"><label for="q1a">В края на 19в.</label><br/>
+                            <input type="radio" name="q1" value="b" id="q1b"><label for="q1b">През 1914г.</label><br/>
+                            <input type="radio" name="q1" value="c" id="q1c"><label for="q1c">В средата на 19в.</label><br/>
+                            <input type="radio" name="q1" value="d" id="q1d"><label for="q1d">През 1917г.</label><br/>
+                        </ul>
+
+                        <p class="question">2. Колко е висок централния купол?</p>
+                        <ul class="answers">
+                            <input type="radio" name="q2" value="a" id="q1a"><label for="q1a">18м</label><br/>
+                            <input type="radio" name="q2" value="b" id="q1b"><label for="q1b">16м</label><br/>
+                            <input type="radio" name="q2" value="c" id="q1c"><label for="q1c">19м</label><br/>
+                            <input type="radio" name="q2" value="d" id="q1d"><label for="q1d">21м</label><br/>
+                        </ul>
+
+                        <p class="question">3. Кога в храма започват да служат свещеници и архитиейти от т. нар. "� уска задгранична църква?</p>
+                        <ul class="answers">
+                            <input type="radio" name="q3" value="a" id="q1a"><label for="q1a">През 1914г.</label><br/>
+                            <input type="radio" name="q3" value="b" id="q1b"><label for="q1b">След Втората руска революция</label><br/>
+                            <input type="radio" name="q3" value="c" id="q1c"><label for="q1c">През 1913г.</label><br/>
+                            <input type="radio" name="q3" value="d" id="q1d"><label for="q1d">През 1910г.</label><br/>
+                        </ul>
+                    </div>
+
+            </div>
+                </form>
+                </div>
+
+
+
+
+
+                <div id="style-selector-control" class="map-control">
+                    <select id="style-selector" class=" style-hover">
+                        <option value="default">Карта</option>
+                        <option value="kids" selected="selected">Детска карта</option>
+                        <option value="retro" selected="selected">Карта на забележителностите</option>
+                        <option value="WeekTargets" selected="selected">Седмични цели</option>
+
+                    </select>
+                    <div>
+                        <button id="style2-selector2" class=" style-hover" onclick="document.getElementById('id01').style.display='block'" style="width:auto;">Герой</button>
+                    </div>
+                    <div>
+                        <button id="style3-selector3" class=" style-hover" style="width:auto;">Излез</button>
+                    </div>
+                </div>
+                <div id="map"></div>
+
+
+
+                <div id="id01" class="modal">
+
+                    <form class="modal-content animate" action="/action_page.php">
+                        <div>
+                            <h1 class="userstat">Име:</h1>
+                            <h1 class="userstat">Бисквитки:
+                            </h1>
+                            <div id="prof1">
+                                <h1 class="badges">Значка:
+                                </h1>
+
+                                <img class="ach" src="https://i.imgur.com/nr7omDk.png">
+
+
+
+                            </div>
+                            <div id="prof2">
+                                <h1 class="places">Посетени места:
+                                </h1>
+
+                                <b class="vis">afffa</b>
+
+                            </div>
+
+                        </div>
+                    </form>
+                </div>
+                <script>
+var modal = document.getElementById('id01');
+
+
+window.onclick = function(event) {
+    if (event.target == modal) {
+        modal.style.display = "none";
+    }
+}
+
+                </script>
+                <script>
+var map;
+
+f (!(Kinvey.User.getActiveUser())){
+    window.location.replace(site);
+}
+function initMap() {
+    map = new google.maps.Map(document.getElementById('map'), {
+        center: {
+            lat: 42.6977082,
+            lng: 23.321867500000053
+        },
+        zoom: 13,
+        mapTypeControl: false,
+        streetViewControl: false,
+        fullscreenControl: false
+    });
+    var styleControl = document.getElementById('style-selector-control');
+    map.controls[google.maps.ControlPosition.TOP_LEFT].push(styleControl);
+    var img = 'https://i.imgur.com/vljb7jT.png';
+    var cookie = 'https://i.imgur.com/Ri5luM5.png';
+    
+    var marker0 = new google.maps.Marker({
+        map: map,
+    });
+    function updatePosition(position){
+        marker0.setPosition( new google.maps.LatLng(position.coords.latitude, position.coords.longitude) );
+    }
+
+
+
+    if (navigator.geolocation) {
+        navigator.geolocation.watchPosition(updatePosition);
+    } else {
+        window.alert('error with locating your coordinates.');
+    }
+
+    var marker1 = new google.maps.Marker({
+        position: {
+            lat: 42.6958106,
+            lng: 23.332900300000006
+        },
+        map: map,
+        icon: img,
+        title: 'Храм-паметник "Св. А. Невски"',
+
+    });
+    var marker2 = new google.maps.Marker({
+        position: {
+            lat: 42.6956906,
+            lng: 23.328966600000058
+        },
+        map: map,
+        icon: img,
+        title: '� уска църква "Св. Н. Мирликийски"',
+    });
+    var marker3 = new google.maps.Marker({
+        position: {
+            lat: 42.64463130000001,
+            lng: 23.266183400000045
+        },
+        map: map,
+        icon: img,
+        title: 'Боянската църква "Св. св. Никола и Пантелеймон"'
+    });
+
+    var marker11 = new google.maps.Marker({
+        position: {
+            lat: 42.6958106,
+            lng: 23.332900300000006
+        },
+        map: map,
+        icon: cookie,
+        title: 'Храм-паметник "Св. А. Невски"',
+
+    });
+    var marker22 = new google.maps.Marker({
+        position: {
+            lat: 42.6956906,
+            lng: 23.328966600000058
+        },
+        map: map,
+        icon: cookie,
+        title: '� уска църква "Св. Н. Мирликийски"',
+    });
+    var marker33 = new google.maps.Marker({
+        position: {
+            lat: 42.64463130000001,
+            lng: 23.266183400000045
+        },
+        map: map,
+        icon: cookie,
+        title: 'Боянската църква "Св. св. Никола и Пантелеймон"'
+
+    });
+    marker11.setVisible(false);
+    marker22.setVisible(false);
+    marker33.setVisible(false);
+
+
+    var marker4 = new google.maps.Marker({
+        position: {
+            lat: 42.6969115,
+            lng: 23.32290169999999
+        },
+        map: map,
+        title: '� отонда "Св. Георги"',
+        icon: cookie,
+    });
+    var marker5 = new google.maps.Marker({
+        position: {
+            lat: 42.7002701,
+            lng: 23.320849400000043
+        },
+        map: map,
+        title: 'Софийска синагога',
+        icon: cookie,
+    });
+    var marker6 = new google.maps.Marker({
+        position: {
+            lat: 42.6995277,
+            lng: 23.32255310000005
+        },
+        map: map,
+        title: 'Джамия Баши',
+        icon: cookie,
+    });
+    var marker7 = new google.maps.Marker({
+        position: {
+            lat: 42.6906651,
+            lng: 23.334498800000006
+        },
+        map: map,
+        title: 'Паметник на съветската армия',
+        icon: cookie,
+    });
+    var marker8 = new google.maps.Marker({
+        position: {
+            lat: 42.6549798,
+            lng: 23.27088189999995
+        },
+        map: map,
+        title: 'Националният исторически музей',
+        icon: cookie,
+    });
+    var marker9 = new google.maps.Marker({
+        position: {
+            lat: 42.6993502,
+            lng: 23.323696299999938
+        },
+        map: map,
+        title: 'Централната минерална баня',
+        icon: cookie,
+    });
+    var marker10 = new google.maps.Marker({
+        position: {
+            lat: 42.6966686,
+            lng: 23.33533460000001
+        },
+        map: map,
+        title: 'Паметникът на Васил Левски',
+        icon: cookie,
+    });
+    var styleSelector = document.getElementById('style-selector');
+    map.setOptions({
+        styles: styles[styleSelector.value]
+    });
+
+    var contentString1 = '<div id="content">' +
+        '<div id="siteNotice">' +
+        '</div>' +
+        '<h1 id="firstHeading" class="firstHeading">Св.Александър Невски</h1>' +
+        '<div id="bodyContent">' +
+        '<p>„Свети Александър Невски“ е православен храм-паметник в София, който e катедрален храм на българския патриарх.</p>' +
+        '<p>Брой точки: 36</p>' +
+        '</div>' +
+        '</div>';
+
+    var contentString2 = '<div id="content">' +
+        '<div id="siteNotice">' +
+        '</div>' +
+        '<h1 id="firstHeading" class="firstHeading">� уска Църква „Свети Николай Мирликийски“</h1>' +
+        '<div id="bodyContent">' +
+        '<p>„Свети Николай Чудотворец“, известна като � уската църква, е православна църква в българската столица София, посветена на Свети Николай Чудотворец.</p>' +
+        '<p>Брой точки: 36</p>' +
+        '</div>' +
+        '</div>';
+
+    var contentString3 = '<div id="content">' +
+        '<div id="siteNotice">' +
+        '</div>' +
+        '<h1 id="firstHeading" class="firstHeading">Боянска черква</h1>' +
+        '<div id="bodyContent">' +
+        '<p>Боянската църква „Св. св. Никола и Пантелеймон“ е средновековна българска църква в софийския квартал Бояна, намиращ се в подножието на Витоша.</p>' +
+        '<p>Брой точки: 36</p>' +
+        '</div>' +
+        '</div>';
+
+    var contentString4 = '<div id="content">' +
+        '<div id="siteNotice">' +
+        '</div>' +
+        '<h1 id="firstHeading" class="firstHeading">� отонда Свети Георги</h1>' +
+        '<div id="bodyContent">' +
+        '<p>„Свети Георги“ е православен храм, построен в късната античност в архитектурната форма на ротонда, в София, България.</p>' +
+        '<p>Брой точки: 18</p>' +
+        '</div>' +
+        '</div>';
+
+    var contentString5 = '<div id="content">' +
+        '<div id="siteNotice">' +
+        '</div>' +
+        '<h1 id="firstHeading" class="firstHeading">Софийска синагога</h1>' +
+        '<div id="bodyContent">' +
+        '<p>Софийската синагога е най-голямата на Балканския полуостров и 3-та в Европа.</p>' +
+        '<p>Брой точки: 18</p>' +
+        '</div>' +
+        '</div>';
+
+    var contentString6 = '<div id="content">' +
+        '<div id="siteNotice">' +
+        '</div>' +
+        '<h1 id="firstHeading" class="firstHeading">Джамия Баня Баши</h1>' +
+        '<div id="bodyContent">' +
+        '<p>Джамията „Баня баши” се намира в центъра на София, на булевард „Мария Луиза”.</p>' +
+        '<p>Брой точки: 18</p>' +
+        '</div>' +
+        '</div>';
+
+    var contentString7 = '<div id="content">' +
+        '<div id="siteNotice">' +
+        '</div>' +
+        '<h1 id="firstHeading" class="firstHeading">Паметник на Съветската армия</h1>' +
+        '<div id="bodyContent">' +
+        '<p>Паметникът на Съветската армия е паметник, разположен в Княжеската градина, в центъра на българската столица София, посветен на съветската Червена армия. </p>' +
+        '<p>Брой точки: 18</p>' +
+        '</div>' +
+        '</div>';
+
+    var contentString8 = '<div id="content">' +
+        '<div id="siteNotice">' +
+        '</div>' +
+        '<h1 id="firstHeading" class="firstHeading">Национален исторически музей</h1>' +
+        '<div id="bodyContent">' +
+        '<p>Националният исторически музей (НИМ) е най-големият музей в България.</p>' +
+        '<p>Брой точки: 18</p>' +
+        '</div>' +
+        '</div>';
+
+    var contentString9 = '<div id="content">' +
+        '<div id="siteNotice">' +
+        '</div>' +
+        '<h1 id="firstHeading" class="firstHeading">Централна минерална баня - Музей за история на София</h1>' +
+        '<div id="bodyContent">' +
+        '<p>Централната минерална баня е емблематична сграда в центъра на София, район „Оборище“. Тя е паметник на културата с национално значение.</p>' +
+        '<p>Брой точки: 18</p>' +
+        '</div>' +
+        '</div>';
+
+    var contentString10 = '<div id="content">' +
+        '<div id="siteNotice">' +
+        '</div>' +
+        '<h1 id="firstHeading" class="firstHeading">Паметник на Васил Левски</h1>' +
+        '<div id="bodyContent">' +
+        '<p>Паметникът на Васил Левски се намира в центъра на град София, България.</p>' +
+        '<p>Брой точки: 18</p>' +
+        '</div>' +
+        '</div>';
+
+
+    var IW1 = new google.maps.InfoWindow({
+        content: contentString1
+    });
+
+    marker1.addListener('click', function() {
+        IW1.open(map, marker1);
+    });
+
+    var IW11 = new google.maps.InfoWindow({
+        content: contentString1
+    });
+
+    marker11.addListener('click', function() {
+        IW11.open(map, marker11);
+    });
+
+    var IW2 = new google.maps.InfoWindow({
+        content: contentString2
+    });
+
+    marker2.addListener('click', function() {
+        IW2.open(map, marker2);
+    });
+
+    var IW22 = new google.maps.InfoWindow({
+        content: contentString2
+    });
+
+    marker22.addListener('click', function() {
+        IW22.open(map, marker22);
+    });
+
+    var IW3 = new google.maps.InfoWindow({
+        content: contentString3
+    });
+
+    marker3.addListener('click', function() {
+        IW3.open(map, marker3);
+    });
+
+    var IW33 = new google.maps.InfoWindow({
+        content: contentString3
+    });
+
+    marker33.addListener('click', function() {
+        IW33.open(map, marker33);
+    });
+
+    var IW4 = new google.maps.InfoWindow({
+        content: contentString4
+    });
+
+
+    marker4.addListener('click', function() {
+        IW4.open(map, marker4);
+    });
+
+    var IW5 = new google.maps.InfoWindow({
+        content: contentString5
+    });
+
+    marker5.addListener('click', function() {
+        IW5.open(map, marker5);
+    });
+
+    var IW6 = new google.maps.InfoWindow({
+        content: contentString6
+    });
+
+    marker6.addListener('click', function() {
+        IW6.open(map, marker6);
+    });
+
+    var IW7 = new google.maps.InfoWindow({
+        content: contentString7
+    });
+
+    marker7.addListener('click', function() {
+        IW7.open(map, marker7);
+    });
+
+    var IW8 = new google.maps.InfoWindow({
+        content: contentString8
+    });
+
+    marker8.addListener('click', function() {
+        IW8.open(map, marker8);
+    });
+
+    var IW9 = new google.maps.InfoWindow({
+        content: contentString9
+    });
+
+    marker9.addListener('click', function() {
+        IW9.open(map, marker9);
+    });
+
+    var IW10 = new google.maps.InfoWindow({
+        content: contentString10
+    });
+
+    marker10.addListener('click', function() {
+        IW10.open(map, marker10);
+    });
+
+
+
+
+
+    styleSelector.addEventListener('change', function() {
+        map.setOptions({
+            styles: styles[styleSelector.value]
+        });
+        if (styleSelector.selectedIndex == 3) {
+            marker11.setVisible(false);
+            marker22.setVisible(false);
+            marker33.setVisible(false);
+            marker1.setVisible(true);
+            marker2.setVisible(true);
+            marker3.setVisible(true);
+            marker4.setVisible(true);
+            marker5.setVisible(true);
+            marker6.setVisible(true);
+            marker7.setVisible(true);
+            marker8.setVisible(true);
+            marker9.setVisible(true);
+            marker10.setVisible(true);
+        } else if (styleSelector.selectedIndex == 1) {
+            marker1.setVisible(false);
+            marker2.setVisible(false);
+            marker3.setVisible(false);
+            marker11.setVisible(true);
+            marker22.setVisible(true);
+            marker33.setVisible(true);
+            marker4.setVisible(true);
+            marker5.setVisible(true);
+            marker6.setVisible(true);
+            marker7.setVisible(true);
+            marker8.setVisible(true);
+            marker9.setVisible(true);
+            marker10.setVisible(true);
+        } else {
+            marker11.setVisible(false);
+            marker22.setVisible(false);
+            marker33.setVisible(false);
+            marker1.setVisible(false);
+            marker2.setVisible(false);
+            marker3.setVisible(false);
+            marker4.setVisible(false);
+            marker5.setVisible(false);
+            marker6.setVisible(false);
+            marker7.setVisible(false);
+            marker8.setVisible(false);
+            marker9.setVisible(false);
+            marker10.setVisible(false);
+        }
+    });
+
+}
+
+
+
+
+
+var styles = {
+    default: null,
+
+    kids: [{
+        "featureType": "administrative",
+        "stylers": [{
+            "visibility": "off"
+        }]
+    },
+        {
+            "featureType": "landscape.man_made",
+            "elementType": "geometry",
+            "stylers": [{
+                "color": "#c1dae8"
+            }]
+        },
+        {
+            "featureType": "landscape.natural",
+            "elementType": "geometry",
+            "stylers": [{
+                "color": "#99e895"
+            }]
+        },
+        {
+            "featureType": "poi.business",
+            "stylers": [{
+                "visibility": "off"
+            }]
+        },
+        {
+            "featureType": "poi.government",
+            "stylers": [{
+                "visibility": "off"
+            }]
+        },
+        {
+            "featureType": "poi.medical",
+            "stylers": [{
+                "visibility": "off"
+            }]
+        },
+        {
+            "featureType": "poi.park",
+            "elementType": "geometry",
+            "stylers": [{
+                "color": "#71ce8f"
+            }]
+        },
+        {
+            "featureType": "poi.school",
+            "stylers": [{
+                "visibility": "off"
+            }]
+        },
+        {
+            "featureType": "poi.sports_complex",
+            "stylers": [{
+                "visibility": "off"
+            }]
+        },
+        {
+            "featureType": "road",
+            "elementType": "geometry",
+            "stylers": [{
+                "color": "#f7f182"
+            }]
+        },
+        {
+            "featureType": "road.local",
+            "elementType": "geometry",
+            "stylers": [{
+                "color": "#fa7ea0"
+            }]
+        },
+        {
+            "featureType": "transit",
+            "elementType": "geometry",
+            "stylers": [{
+                "color": "#ff6453"
+            }]
+        },
+        {
+            "featureType": "water",
+            "elementType": "geometry",
+            "stylers": [{
+                "color": "#9b96da"
+            }]
+        }
+
+    ],
+
+    retro: [{
+        "elementType": "geometry",
+        "stylers": [{
+            "color": "#ebe3cd"
+        }]
+    },
+        {
+            "elementType": "labels.text.fill",
+            "stylers": [{
+                "color": "#523735"
+            }]
+        },
+        {
+            "elementType": "labels.text.stroke",
+            "stylers": [{
+                "color": "#f5f1e6"
+            }]
+        },
+        {
+            "featureType": "administrative",
+            "elementType": "geometry.stroke",
+            "stylers": [{
+                "color": "#c9b2a6"
+            }]
+        },
+        {
+            "featureType": "administrative.country",
+            "stylers": [{
+                "visibility": "on"
+            }]
+        },
+        {
+            "featureType": "administrative.country",
+            "elementType": "geometry.fill",
+            "stylers": [{
+                "color": "#625335"
+            },
+                {
+                    "visibility": "on"
+                }
+            ]
+        },
+        {
+            "featureType": "administrative.country",
+            "elementType": "geometry.stroke",
+            "stylers": [{
+                "color": "#625335"
+            },
+                {
+                    "lightness": 25
+                },
+                {
+                    "visibility": "on"
+                },
+                {
+                    "weight": 2
+                }
+            ]
+        },
+        {
+            "featureType": "administrative.land_parcel",
+            "elementType": "geometry.stroke",
+            "stylers": [{
+                "color": "#dcd2be"
+            }]
+        },
+        {
+            "featureType": "administrative.land_parcel",
+            "elementType": "labels.text.fill",
+            "stylers": [{
+                "color": "#ae9e90"
+            }]
+        },
+        {
+            "featureType": "administrative.province",
+            "elementType": "geometry.stroke",
+            "stylers": [{
+                "color": "#625335"
+            },
+                {
+                    "lightness": 25
+                }
+            ]
+        },
+        {
+            "featureType": "landscape.man_made",
+            "stylers": [{
+                "lightness": -15
+            }]
+        },
+        {
+            "featureType": "landscape.natural",
+            "elementType": "geometry",
+            "stylers": [{
+                "color": "#dfd2ae"
+            }]
+        },
+        {
+            "featureType": "poi",
+            "elementType": "geometry",
+            "stylers": [{
+                "color": "#dfd2ae"
+            }]
+        },
+        {
+            "featureType": "poi",
+            "elementType": "labels.text.fill",
+            "stylers": [{
+                "color": "#93817c"
+            }]
+        },
+        {
+            "featureType": "poi.business",
+            "stylers": [{
+                "visibility": "off"
+            }]
+        },
+        {
+            "featureType": "poi.government",
+            "stylers": [{
+                "visibility": "off"
+            }]
+        },
+        {
+            "featureType": "poi.medical",
+            "stylers": [{
+                "visibility": "off"
+            }]
+        },
+        {
+            "featureType": "poi.park",
+            "elementType": "geometry.fill",
+            "stylers": [{
+                "color": "#a5b076"
+            }]
+        },
+        {
+            "featureType": "poi.park",
+            "elementType": "labels.text.fill",
+            "stylers": [{
+                "color": "#447530"
+            }]
+        },
+        {
+            "featureType": "poi.school",
+            "stylers": [{
+                "visibility": "off"
+            }]
+        },
+        {
+            "featureType": "poi.sports_complex",
+            "stylers": [{
+                "visibility": "off"
+            }]
+        },
+        {
+            "featureType": "road",
+            "elementType": "geometry",
+            "stylers": [{
+                "color": "#f5f1e6"
+            }]
+        },
+        {
+            "featureType": "road.arterial",
+            "elementType": "geometry",
+            "stylers": [{
+                "color": "#fdfcf8"
+            }]
+        },
+        {
+            "featureType": "road.highway",
+            "elementType": "geometry",
+            "stylers": [{
+                "color": "#f8c967"
+            }]
+        },
+        {
+            "featureType": "road.highway",
+            "elementType": "geometry.stroke",
+            "stylers": [{
+                "color": "#e9bc62"
+            }]
+        },
+        {
+            "featureType": "road.highway.controlled_access",
+            "elementType": "geometry",
+            "stylers": [{
+                "color": "#e98d58"
+            }]
+        },
+        {
+            "featureType": "road.highway.controlled_access",
+            "elementType": "geometry.stroke",
+            "stylers": [{
+                "color": "#db8555"
+            }]
+        },
+        {
+            "featureType": "road.local",
+            "elementType": "labels.text.fill",
+            "stylers": [{
+                "color": "#806b63"
+            }]
+        },
+        {
+            "featureType": "transit.line",
+            "elementType": "geometry",
+            "stylers": [{
+                "color": "#dfd2ae"
+            }]
+        },
+        {
+            "featureType": "transit.line",
+            "elementType": "labels.text.fill",
+            "stylers": [{
+                "color": "#8f7d77"
+            }]
+        },
+        {
+            "featureType": "transit.line",
+            "elementType": "labels.text.stroke",
+            "stylers": [{
+                "color": "#ebe3cd"
+            }]
+        },
+        {
+            "featureType": "transit.station",
+            "elementType": "geometry",
+            "stylers": [{
+                "color": "#dfd2ae"
+            }]
+        },
+        {
+            "featureType": "water",
+            "elementType": "geometry.fill",
+            "stylers": [{
+                "color": "#b9d3c2"
+            }]
+        },
+        {
+            featureType: 'water',
+            elementType: 'labels.text.fill',
+            stylers: [{
+                color: '#92998d'
+            }]
+        }
+    ],
+
+    WeekTargets: [{
+        "elementType": "geometry",
+        "stylers": [{
+            "color": "#ebe3cd"
+        }]
+    },
+        {
+            "elementType": "labels.text.fill",
+            "stylers": [{
+                "color": "#523735"
+            }]
+        },
+        {
+            "elementType": "labels.text.stroke",
+            "stylers": [{
+                "color": "#f5f1e6"
+            }]
+        },
+        {
+            "featureType": "administrative",
+            "elementType": "geometry.stroke",
+            "stylers": [{
+                "color": "#c9b2a6"
+            }]
+        },
+        {
+            "featureType": "administrative.country",
+            "stylers": [{
+                "visibility": "on"
+            }]
+        },
+        {
+            "featureType": "administrative.country",
+            "elementType": "geometry.fill",
+            "stylers": [{
+                "color": "#625335"
+            },
+                {
+                    "visibility": "on"
+                }
+            ]
+        },
+        {
+            "featureType": "administrative.country",
+            "elementType": "geometry.stroke",
+            "stylers": [{
+                "color": "#625335"
+            },
+                {
+                    "lightness": 25
+                },
+                {
+                    "visibility": "on"
+                },
+                {
+                    "weight": 2
+                }
+            ]
+        },
+        {
+            "featureType": "administrative.land_parcel",
+            "elementType": "geometry.stroke",
+            "stylers": [{
+                "color": "#dcd2be"
+            }]
+        },
+        {
+            "featureType": "administrative.land_parcel",
+            "elementType": "labels.text.fill",
+            "stylers": [{
+                "color": "#ae9e90"
+            }]
+        },
+        {
+            "featureType": "administrative.province",
+            "elementType": "geometry.stroke",
+            "stylers": [{
+                "color": "#625335"
+            },
+                {
+                    "lightness": 25
+                }
+            ]
+        },
+        {
+            "featureType": "landscape.man_made",
+            "stylers": [{
+                "lightness": -15
+            }]
+        },
+        {
+            "featureType": "landscape.natural",
+            "elementType": "geometry",
+            "stylers": [{
+                "color": "#dfd2ae"
+            }]
+        },
+        {
+            "featureType": "poi",
+            "stylers": [{
+                "visibility": "off"
+            }]
+        },
+        {
+            "featureType": "poi",
+            "elementType": "geometry",
+            "stylers": [{
+                "color": "#dfd2ae"
+            }]
+        },
+        {
+            "featureType": "poi",
+            "elementType": "labels.text.fill",
+            "stylers": [{
+                "color": "#93817c"
+            }]
+        },
+        {
+            "featureType": "poi.attraction",
+            "stylers": [{
+                "visibility": "off"
+            }]
+        },
+        {
+            "featureType": "poi.business",
+            "stylers": [{
+                "visibility": "off"
+            }]
+        },
+        {
+            "featureType": "poi.government",
+            "stylers": [{
+                "visibility": "off"
+            }]
+        },
+        {
+            "featureType": "poi.medical",
+            "stylers": [{
+                "visibility": "off"
+            }]
+        },
+        {
+            "featureType": "poi.park",
+            "elementType": "geometry",
+            "stylers": [{
+                "visibility": "on"
+            }]
+        },
+        {
+            "featureType": "poi.park",
+            "elementType": "geometry.fill",
+            "stylers": [{
+                "color": "#c0b07e"
+            }]
+        },
+        {
+            "featureType": "poi.park",
+            "elementType": "labels.text.fill",
+            "stylers": [{
+                "color": "#447530"
+            }]
+        },
+        {
+            "featureType": "poi.place_of_worship",
+            "stylers": [{
+                "visibility": "off"
+            }]
+        },
+        {
+            "featureType": "poi.school",
+            "stylers": [{
+                "visibility": "off"
+            }]
+        },
+        {
+            "featureType": "poi.sports_complex",
+            "stylers": [{
+                "visibility": "off"
+            }]
+        },
+        {
+            "featureType": "road",
+            "elementType": "geometry",
+            "stylers": [{
+                "color": "#f5f1e6"
+            }]
+        },
+        {
+            "featureType": "road.arterial",
+            "elementType": "geometry",
+            "stylers": [{
+                "color": "#fdfcf8"
+            }]
+        },
+        {
+            "featureType": "road.highway",
+            "elementType": "geometry",
+            "stylers": [{
+                "color": "#f8c967"
+            }]
+        },
+        {
+            "featureType": "road.highway",
+            "elementType": "geometry.stroke",
+            "stylers": [{
+                "color": "#e9bc62"
+            }]
+        },
+        {
+            "featureType": "road.highway",
+            "elementType": "labels.icon",
+            "stylers": [{
+                "visibility": "off"
+            }]
+        },
+        {
+            "featureType": "road.highway.controlled_access",
+            "elementType": "geometry",
+            "stylers": [{
+                "color": "#e98d58"
+            }]
+        },
+        {
+            "featureType": "road.highway.controlled_access",
+            "elementType": "geometry.stroke",
+            "stylers": [{
+                "color": "#db8555"
+            }]
+        },
+        {
+            "featureType": "road.local",
+            "elementType": "labels.text.fill",
+            "stylers": [{
+                "color": "#806b63"
+            }]
+        },
+        {
+            "featureType": "transit",
+            "stylers": [{
+                "visibility": "off"
+            }]
+        },
+        {
+            "featureType": "transit.line",
+            "elementType": "geometry",
+            "stylers": [{
+                "color": "#dfd2ae"
+            }]
+        },
+        {
+            "featureType": "transit.line",
+            "elementType": "labels.text.fill",
+            "stylers": [{
+                "color": "#8f7d77"
+            }]
+        },
+        {
+            "featureType": "transit.line",
+            "elementType": "labels.text.stroke",
+            "stylers": [{
+                "color": "#ebe3cd"
+            }]
+        },
+        {
+            "featureType": "transit.station",
+            "elementType": "geometry",
+            "stylers": [{
+                "color": "#dfd2ae"
+            }]
+        },
+        {
+            "featureType": "water",
+            "elementType": "geometry.fill",
+            "stylers": [{
+                "color": "#b9d3c2"
+            }]
+        },
+        {
+            "featureType": "water",
+            "elementType": "labels.text.fill",
+            "stylers": [{
+                "color": "#92998d"
+            }]
+        }
+    ]
+
+};
+
+                </script>
+                <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCyrieRUm9IPC8gd8dV0bLd1iq4C_sC2OU&callback=initMap" async defer>
+
+
+                </script>
+
+    </body>
+
+</html>
