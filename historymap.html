@@ -350,7 +350,7 @@ window.onclick = function(event) {
                 <script>
 var map;
 
-f (!(Kinvey.User.getActiveUser())){
+if (!(Kinvey.User.getActiveUser())){
     window.location.replace(site);
 }
 function initMap() {
