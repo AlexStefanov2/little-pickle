@@ -29,7 +29,6 @@ if (Kinvey.User.getActiveUser()){
     window.location.replace(site);
 }
 
-
 var dataStore = Kinvey.DataStore.collection('coins');
 
 function submitForm() {
@@ -79,7 +78,6 @@ function register() {
             cookies: 0
         })
             .then(function onSuccess(entity){
-                window.alert('success!');
                 window.location.replace(site);
             })
             .catch(function onError(error) {
@@ -90,9 +88,6 @@ function register() {
         window.alert(error);
         return 1;
     });
-
-
-
 }
 
 
