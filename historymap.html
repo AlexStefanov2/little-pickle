@@ -36,6 +36,19 @@ function logout() {
         });
 }
 
+function fetchUserData(){
+    document.getElementById('namecontainer').innerHTML = Kinvey.User.getActiveUser()['data']['username']
+
+            var query = new Kinvey.Query();
+            query.equalTo('username', username);
+            var stream = dataStore.find(query);
+            stream.subscribe(function onNext(entities){
+                if (entities.length > 0){
+                    publicvar = entities;
+                    document.getElementById('cookiecontainer').innerHTML = entities['cookies'];
+                }
+            });
+
         </script>
         <style>
 #map {
@@ -234,7 +247,7 @@ function logout() {
 
             </select>
             <div>
-                <button id="style2-selector2" class=" style-hover" onclick="document.getElementById('id01').style.display='block'" style="width:auto;">Герой</button>
+                <button id="style2-selector2" class=" style-hover" onclick="document.getElementById('id01').style.display='block'; fetchUserData();" style="width:auto;">Герой</button>
             </div>
             <div>
                 <button id="style3-selector3" onclick="logout()" class=" style-hover" style="width:auto;">Излез</button>
@@ -251,8 +264,8 @@ function logout() {
 
                     <div id="lqvo">
                         <div class="lqvtext">
-                            <h1>ИМЕ: </h1>
-                            <h1>БИСКВИТКИ: </h1>
+                            <h1>ИМЕ: <div id="namecontainer"></div></h1>
+                            <h1>БИСКВИТКИ: <div id="cookiecontainer"></div></h1>
                         </div>
                         <div>
                             <img id="image1" src="https://i.imgur.com/nr7omDk.png" alt="Значки">
