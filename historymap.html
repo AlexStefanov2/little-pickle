@@ -12,15 +12,34 @@
                 integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
                 crossorigin="anonymous"></script>
         <script>
-        Kinvey.init({
-            appKey: 'kid_By_phEFtf',
-            appSecret: 'd4a49e6e931f490ab2f3b708f79a3629',
-        });
+Kinvey.init({
+    appKey: 'kid_By_phEFtf',
+    appSecret: 'd4a49e6e931f490ab2f3b708f79a3629',
+});
 var site = "https://alexstefanov2.github.io/little-pickle/SiteHistorian.html";
-var dataStore = Kinvey.DataStore.collection('coins');
         </script>
-        <script src="logout.js"></script>
-        <script src="fetchUserData.js"></script>
+        <script>
+
+
+var promise;
+var publicvar;
+var dataStore = Kinvey.DataStore.collection('coins');
+
+function fetchUserData(){
+    document.getElementById('namecontainer').innerHTML = Kinvey.User.getActiveUser()['data']['username']
+
+    var query = new Kinvey.Query();
+    query.equalTo('username', Kinvey.User.getActiveUser()['data']['username']);
+    var stream = dataStore.find(query);
+    stream.subscribe(function onNext(entities){
+        if (entities.length > 0){
+            publicvar = entities;
+            document.getElementById('cookiecontainer').innerHTML = entities[0]['cookies'];
+        }
+    });
+}
+
+        </script>
         <style>
 #map {
     height: 100%;
