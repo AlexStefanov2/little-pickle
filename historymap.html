@@ -45,7 +45,7 @@ function fetchUserData(){
             stream.subscribe(function onNext(entities){
                 if (entities.length > 0){
                     publicvar = entities;
-                    document.getElementById('cookiecontainer').innerHTML = entities['cookies'];
+                    document.getElementById('cookiecontainer').innerHTML = entities[0]['cookies'];
                 }
             });
 }
