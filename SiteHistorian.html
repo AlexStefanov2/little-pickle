@@ -68,10 +68,11 @@ function register() {
     }
 
     var user = new Kinvey.User();
+    var promise = Kinvey.User.login(username, password)
 
     window.alert('reached here');
 
-    var promise = user.signup({
+    promise = user.signup({
         username: username,
         password: password
     }).catch(function(error){
