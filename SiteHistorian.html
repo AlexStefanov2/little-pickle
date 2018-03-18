@@ -70,30 +70,29 @@ function register() {
     var user = new Kinvey.User();
 
     window.alert('reached here');
+
+    var promise = user.signup({
+        username: username,
+        password: password
+    }).catch(function(error){
+        window.alert("Registration failed");
+        window.alert(error);
+        return 1;
+    });
+
     dataStore.save({
         username: username,
         cookies: 0
     })
         .then(function onSuccess(entity){
             window.alert('success!');
+            window.location.replace(site);
         })
         .catch(function onError(error) {
             window.alert(error);
         });
 
-    
-    var promise = user.signup({
-        username: username,
-        password: password
-    })
-        .then(function(user){
-            window.location.replace(site);
-        })
-        .catch(function(error){
-            window.alert("Registration failed");
-            window.alert(error);
-        });
-        
+
 }
 
 
